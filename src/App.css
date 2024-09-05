@@ -1,0 +1,47 @@
+
+@font-face {
+  font-family: 'ZedMono';
+  src: url('./assets/fonts/ZedMonoNerdFont-Regular.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'RobotoMono';
+  src: url('./assets/fonts/RobotoMono-Regular.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GeistMono';
+  src: url('./assets/fonts/GeistMonoNerdFont-Regular.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+.dark {
+  @apply bg-gruvbox-dark-bg0;
+  @apply text-gruvbox-dark-fg0;
+}
+
+.light {
+  @apply bg-gruvbox-light-bg0;
+  @apply text-gruvbox-light-fg0; }
+
+body {
+  font-family: 'GeistMono', monospace;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  @apply transition-colors duration-1000 ease-linear;
+}
+
+body.dark {
+  --bg-color: var(--dark-bg-color);
+  --text-color: var(--dark-text-color);
+}
+
+body.light {
+  --bg-color: var(--light-bg-color);
+  --text-color: var(--light-text-color);
+}
