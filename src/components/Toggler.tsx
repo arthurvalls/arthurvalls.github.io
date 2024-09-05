@@ -13,15 +13,16 @@ const Toggler = () => {
     localStorage.setItem('mode', mode);
   }, [mode]);
 
-  const handleToggleCommand = (event) => {
+  const handleToggleCommand = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      const command = event.target.value.trim();
+      const target = event.target as HTMLInputElement;
+      const command = target.value.trim();
       if (command === './toggle-dark') {
         setMode('dark');
       } else if (command === './toggle-light') {
         setMode('light');
       }
-      event.target.value = '';
+      target.value = '';
     }
   };
   return (
