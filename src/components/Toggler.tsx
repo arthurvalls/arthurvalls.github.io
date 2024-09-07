@@ -1,5 +1,4 @@
-
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const Toggler = () => {
   const [mode, setMode] = useState(() => {
@@ -7,19 +6,25 @@ const Toggler = () => {
     return savedMode || (document.documentElement.classList.contains('dark') ? 'dark' : 'light');
   });
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
     document.documentElement.classList.remove('dark', 'light');
     document.documentElement.classList.add(mode);
     localStorage.setItem('mode', mode);
+
+    if (inputRef.current) {
+      inputRef.current.focus({ preventScroll: true });
+    }
   }, [mode]);
 
   const handleToggleCommand = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       const target = event.target as HTMLInputElement;
       const command = target.value.trim();
-      if (command === './toggle-dark') {
+      if (command === './dark') {
         setMode('dark');
-      } else if (command === './toggle-light') {
+      } else if (command === './light') {
         setMode('light');
       }
       target.value = '';
@@ -28,7 +33,7 @@ const Toggler = () => {
   return (
     <div>
       <input
-        placeholder='./toggle-dark'
+        ref={inputRef}
         type="text"
         onKeyDown={handleToggleCommand}
         className={`p-2 ${mode === 'dark' ? 'text-gruvbox-light-fg bg-gruvbox-dark-bg caret-gruvbox-light-fg animate-blink' : 'text-gruvbox-dark-fg bg-gruvbox-light-bg caret-gruvbox-dark-fg'}`}

@@ -53,7 +53,7 @@ const App: React.FC = () => {
           </h1>
 
           <p className='mt-3 max-w-screen-md'>
-            You can change the website's color mode by typing <b className='font-black'>./toggle-dark</b> and <b className='font-black'>./toggle-light</b> in the prompt below.
+            You can change the website's color mode by typing <br></br><b className='font-black'>./dark</b> or <b className='font-black'>./light</b> in the prompt below.
           </p>
         </header>
       </section>
