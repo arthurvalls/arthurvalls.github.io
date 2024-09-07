@@ -1,11 +1,37 @@
 import './App.css';
 import Toggler from './components/Toggler';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Cv from './data/Cv';
+import TypingEffect from './components/TypingEffect';
 
 const App: React.FC = () => {
   const linkColor = 'dark:text-gruvbox-dark-yellow text-gruvbox-light-yellow hover:text-gruvbox-light-blue dark:hover:text-gruvbox-dark-blue';
   const linkTransitions = ' transition-colors duration-150 ease-linear';
+
+  const [typingComplete, setTypingComplete] = useState(false);
+  const [showText, setShowText] = useState(false);
+  const [helpComplete, setHelpComplete] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
+
+  const handleTypingComplete = () => {
+    console.log('typing complete');
+    setTypingComplete(true);
+  };
+
+  const handleHelpComplete = () => {
+    console.log('typing complete');
+    setShowHelp(true);
+  };
+
+
+  useEffect(() => {
+    if (typingComplete) {
+      const timer = setTimeout(() => setShowText(true), 250); return () => clearTimeout(timer);
+    }
+    if (helpComplete) {
+      const timer = setTimeout(() => setShowHelp(true), 250); return () => clearTimeout(timer);
+    }
+  }, [typingComplete, helpComplete]);
 
   return (
     <div className='ml-10 mr-10 text-sm text-left md:text-2xl sm:mr-1 dark:text-gruvbox-dark-fg0 text-gruvbox-light-fg0 transition-colors duration-1000 ease-linear '>
@@ -17,28 +43,31 @@ const App: React.FC = () => {
               arthur@welcome
             </span>
             <span className='dark:text-gruvbox-dark-fg0 text-gruvbox-light-fg0 transition-colors duration-1000 ease-linear'> ~ </span>
-            head -n 2 socials.txt
+            <TypingEffect text="head -n 2 socials.txt" speed={75} onComplete={handleTypingComplete} />
           </h1>
         </header>
-        <ul className='mt-3 list-disc list-inside'>
-          <li>
-            <a
-              href='https://github.com/arthurvalls'
-              target='_blank'
-              rel='noopener noreferrer'
-              className={`${linkColor} ${linkTransitions}`}>
-              GitHub
-            </a>
-          </li>
-          <li>
-            <a
-              href='https://www.linkedin.com/in/arthurvalls'
-              target='_blank'
-              rel='noopener noreferrer'
-              className={`${linkColor} ${linkTransitions}`}>
-              LinkedIn
-            </a>
-          </li>
+        <ul className={`${showText ? 'opacity-100 transition-opacity duration-1000 ease-in-out' : 'opacity-0'}`}>
+          <section className='mt-5'>
+            <li>
+              <a
+                href='https://github.com/arthurvalls'
+                target='_blank'
+                rel='noopener noreferrer'
+                className={`${linkColor} ${linkTransitions}`}>
+                GitHub
+              </a>
+            </li>
+            <li>
+              <a
+                href='https://www.linkedin.com/in/arthurvalls'
+                target='_blank'
+                rel='noopener noreferrer'
+                className={`${linkColor} ${linkTransitions}`}>
+                LinkedIn
+              </a>
+            </li>
+          </section>
+
         </ul>
       </section>
 
@@ -49,10 +78,9 @@ const App: React.FC = () => {
               arthur@welcome
             </span>
             <span className='dark:text-gruvbox-dark-fg0 text-gruvbox-light-fg0 transition-colors duration-1000 ease-linear'> ~ </span>
-            cat help.txt
+            <TypingEffect text="cat help.txt" speed={200} onComplete={handleHelpComplete} />
           </h1>
-
-          <p className='mt-3 max-w-screen-md'>
+          <p className={`mt-3 max-w-screen-md ${showHelp ? 'opacity-100 transition-opacity duration-1000 ease-in-out' : 'opacity-0'}`}>
             You can change the website's color mode by typing <br></br><b className='font-black'>./dark</b> or <b className='font-black'>./light</b> in the prompt below.
           </p>
         </header>

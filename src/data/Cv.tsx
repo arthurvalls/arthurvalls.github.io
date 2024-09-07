@@ -1,3 +1,6 @@
+import React, { useState, useEffect } from 'react';
+import TypingEffect from '../components/TypingEffect';
+
 const linkColor = 'dark:text-gruvbox-dark-yellow text-gruvbox-light-yellow hover:text-gruvbox-light-blue dark:hover:text-gruvbox-dark-blue';
 const linkTransitions = 'transition-colors duration-150 ease-linear';
 
@@ -20,6 +23,19 @@ const connection = (
 );
 
 const Cv = () => {
+  const [typingComplete, setTypingComplete] = useState(false);
+  const [showText, setShowText] = useState(false);
+
+  const handleTypingComplete = () => {
+    setTypingComplete(true);
+  };
+
+  useEffect(() => {
+    if (typingComplete) {
+      const timer = setTimeout(() => setShowText(true), 250);       return () => clearTimeout(timer);
+    }
+  }, [typingComplete]);
+
   return (
     <div className='text-sm text-left md:text-2xl sm:mr-1 dark:text-gruvbox-dark-fg0 text-gruvbox-light-fg0 transition-colors duration-1000 ease-linear'>
       <header className='mt-10'>
@@ -30,11 +46,11 @@ const Cv = () => {
           <span className='dark:text-gruvbox-dark-fg0 text-gruvbox-light-fg0 transition-colors duration-1000 ease-linear'>
             {' ~ '}
           </span>
-          ./hello
+          <TypingEffect text="./hello" speed={100} onComplete={handleTypingComplete} />
         </h1>
       </header>
 
-      <section className='mt-5 max-w-screen-md'>
+      <section className={`mt-5 max-w-screen-md ${showText ? 'opacity-100 transition-opacity duration-1000 ease-in-out' : 'opacity-0'}`}>
         <p>
           Hey there! I’m a developer from <b>Rio de Janeiro</b>, currently working at{' '}
           <a
@@ -62,6 +78,6 @@ const Cv = () => {
       </section>
     </div>
   );
-}
+};
 
 export default Cv;
