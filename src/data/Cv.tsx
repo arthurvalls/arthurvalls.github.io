@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import TypingEffect from '../components/TypingEffect';
 
 const linkColor = 'dark:text-gruvbox-dark-yellow text-gruvbox-light-yellow hover:text-gruvbox-light-blue dark:hover:text-gruvbox-dark-blue';
